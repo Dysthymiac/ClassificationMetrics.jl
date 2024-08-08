@@ -72,7 +72,7 @@ $(FIELDS)
 struct PredictionResults{T1,T2}
     "Class labels"
     label_set::T1
-    @doc raw"A ``4 \times n`` matrix with rows corresponding to TP, FN, FP and TN."
+    "A ``4 \\times n`` matrix with rows corresponding to TP, FN, FP and TN."
     results::T2
 end
 
