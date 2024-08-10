@@ -1,13 +1,13 @@
 module ClassificationMetrics
 
-export get_label_set, confusion_matrix, prediction_results, AggregationType, rename_labels
+export get_label_set, confusion_matrix, prediction_results, rename_labels
 export IoU,
     support,
     true_false_ratio,
     precision,
     recall,
-    Fᵦ_score,
-    F₁_score,
+    Fβ_score,
+    F1_score,
     fall_out,
     specificity,
     sensitivity,

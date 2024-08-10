@@ -35,7 +35,7 @@ end
 
 """
 
-    confusion_matrix(predicted, actual[, label_set=nothing]; sort_labels=false)
+    confusion_matrix(predicted, actual[, label_set]; sort_labels=false)
     confusion_matrix(predicted::OneHotLike, actual::OneHotLike, label_set)
 
 Compute confusion matrix. Predicted and actual can be provided as vectors of labels 
@@ -46,7 +46,7 @@ function confusion_matrix end
 function confusion_matrix(predicted::OneHotLike, actual::OneHotLike, label_set)
     return ConfusionMatrix(label_set, predicted * transpose(actual))
 end
-function confusion_matrix(predicted, actual, ::Nothing=nothing; sort_labels=false)
+function confusion_matrix(predicted, actual; sort_labels=false)
     return confusion_matrix(
         predicted, actual, get_label_set(predicted, actual); sort_labels=sort_labels
     )
@@ -256,8 +256,8 @@ IoU(args...; kwargs...) = jaccard(args...; kwargs...)
 support(TP, FN, FP, TN) = TP + FN
 true_false_ratio(TP, FN, FP, TN) = safe_div(TP + FN, TP + FP + TN + FN)
 Fβ_score(TP, FN, FP, TN; β=1) =
-    let β² = β^2
-        safe_div((1 + β²)TP, (1 + β²)TP + β² * FN + FP)
+    let β2 = β^2
+        safe_div((1 + β2)TP, (1 + β2)TP + β2 * FN + FP)
     end
 @generated Fβ_score(β::Real) = quote
     β = eval(β)
@@ -306,7 +306,7 @@ end
 
 function classification_report(
     prediction_results::PredictionResults;
-    metrics=[precision, recall, F₁_score],
+    metrics=[precision, recall, F1_score],
     show_per_class=true,
     aggregation_sets=all_aggregation(),
     io=stdout,
