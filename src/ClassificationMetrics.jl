@@ -16,9 +16,9 @@ export IoU,
     false_negative_rate,
     miss_rate,
     jaccard
-export classification_report, all_aggregation
-export AggregationSet
+export classification_report
 export macro_aggregation, micro_aggregation, weighted_aggregation, no_aggregation
+export @metric
 
 
 using Statistics, OneHotArrays, LinearAlgebra, PrettyTables, Printf

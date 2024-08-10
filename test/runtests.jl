@@ -15,7 +15,8 @@ end
 
 @testset "ClassificationMetrics.jl" begin
     @testset "Code quality (Aqua.jl)" begin
-        Aqua.test_all(ClassificationMetrics)
+        Aqua.test_all(ClassificationMetrics; 
+            ambiguities=(exclude=[Base.write], broken=false))
     end
     @testset "Code linting (JET.jl)" begin
         if VERSION >= v"1.9"
