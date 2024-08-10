@@ -50,7 +50,7 @@ get_print_name(x) = pretty_name(x)
 """
     default_aggregation()
 
-Returns aggregation used by default by all metrics. The default is [`weighted_aggregation`](@ref). Can be changed with [`set_default_aggregation`](@ref).
+Returns aggregation used by default by all metrics. The default is [`weighted_aggregation`](@ref). Can be changed with [`set_default_aggregation!`](@ref).
 """
 default_aggregation() = weighted_aggregation
 """
