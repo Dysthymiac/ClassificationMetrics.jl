@@ -20,7 +20,17 @@ export classification_report, all_aggregation
 export AggregationSet
 export macro_aggregation, micro_aggregation, weighted_aggregation, no_aggregation
 
+
+using Statistics, OneHotArrays, LinearAlgebra, PrettyTables, Printf
+
+using DocStringExtensions
+import OneHotArrays: onehotbatch, OneHotLike
+import Base: show, getindex, vcat
+
 include("common_utils.jl")
-include("classification_metrics.jl")
+include("confusion_matrix.jl")
+include("prediction_results.jl")
+include("metrics.jl")
+include("classification_report.jl")
 
 end

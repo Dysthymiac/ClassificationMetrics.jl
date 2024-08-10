@@ -1,5 +1,14 @@
 
-always(val) = (_...) -> val
+"""
+    get_label_set(xs...)
+
+Return all unique labels from one or several containers with labels.
+"""
+get_label_set(xs...) = reduce(∪, unique.(xs))
+
+nonzero_mean(vals) = mean(vals[abs.(vals) .> eps()])
+
+const_func(val) = (_...) -> val
 
 function expr_replace_underscores(expr)
     function find_replace!(expr, gensyms)
@@ -33,3 +42,4 @@ macro fix(expr)
     end
     :(($(gensyms...), ; $kwargs ) -> $expr) |> esc
 end
+
