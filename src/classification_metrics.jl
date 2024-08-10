@@ -155,9 +155,8 @@ no_aggregation(func, vals...) = func.(vals...)
 micro_aggregation(func, vals...) = nonzero_mean(func.(vals...))
 macro_aggregation(func, vals...) = func(sum.(vals)...)
 function weighted_aggregation(func, vals...; weights=nothing)
-    let weights = @something weights vals[1] .+ vals[2]
-        sum(weights .* func.(vals...) ./ sum(weights))
-    end
+    weights = @something weights vals[1] .+ vals[2]
+    return sum(weights .* func.(vals...) ./ sum(weights))
 end
 
 default_aggregation = weighted_aggregation
