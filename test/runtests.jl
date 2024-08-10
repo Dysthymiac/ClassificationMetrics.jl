@@ -2,6 +2,8 @@ using ClassificationMetrics
 using Test
 using Aqua
 using JET
+using Pkg
+
 function get_pkg_version(name::AbstractString)
     for dep in values(Pkg.dependencies())
         if dep.name == name
