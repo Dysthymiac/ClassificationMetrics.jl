@@ -43,8 +43,6 @@ jobs:
   docs:
     name: Documentation
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/moderncv/debian-texlive-docker:main
     permissions:
       actions: write # needed to allow julia-actions/cache to proactively delete old caches that it has created
       contents: write
@@ -58,6 +56,8 @@ jobs:
       - uses: xu-cheng/texlive-action@v2
         with:
           scheme: full
+      - run: |
+          lualatex --version
       - name: Configure doc environment
         shell: julia --project=docs --color=yes {0}
         run: |
