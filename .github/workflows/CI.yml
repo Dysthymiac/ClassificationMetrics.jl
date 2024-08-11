@@ -55,9 +55,11 @@ jobs:
       - uses: julia-actions/cache@v2
       - uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: texlive dvisvgm pdf2svg 
+          packages: wget perl dvisvgm pdf2svg 
           version: 1.0
       - run: |
+          chmod u+x docs/install_texlive.sh
+          ./docs/install_texlive.sh
           lualatex --version
       - name: Configure doc environment
         shell: julia --project=docs --color=yes {0}
