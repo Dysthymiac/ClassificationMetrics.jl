@@ -53,9 +53,11 @@ jobs:
         with:
           version: '1.9'
       - uses: julia-actions/cache@v2
+      - uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: texlive
+          version: 1.0
       - run: |
-          apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install -y texlive
           lualatex --version
       - name: Configure doc environment
         shell: julia --project=docs --color=yes {0}
