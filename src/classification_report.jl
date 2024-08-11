@@ -1,3 +1,34 @@
+
+"""
+$(TYPEDEF)
+
+Aggregation subset to be used in [`classification_report`](@ref).
+
+---
+
+$(FIELDS)
+
+"""
+struct AggregationSubset{T1, T2, T3}
+    "Aggregation function"
+    aggregation::T1
+    "Predicate that defines which subset to aggregate"
+    predicate::T2
+    "Name to be displayed in the classification report"
+    name::T3
+end
+
+"""
+    aggregate_subset(aggregation_function; 
+        predicate=const_func(true), 
+        name=get_print_name(aggregation_function))
+
+Create [`AggregationSubset`](@ref) to be used in [`classification_report`](@ref). 
+"""
+aggregate_subset(aggregation_function; 
+    predicate=const_func(true), 
+    name=get_print_name(aggregation_function)) = AggregationSubset(aggregation_function, predicate, name)
+
 """
     classification_report(predicted, actual; label_set=nothing, sort_labels=true, kws...)
     classification_report(cf::ConfusionMatrix; kws...)
@@ -9,8 +40,8 @@ Print classification report.
 - `metrics=[precision, recall, F1_score]`: metrics to compute
 - `show_per_class=true`: show results per each class or only the aggregated results
 - `aggregations=[micro_aggregation, macro_aggregation, weighted_aggregation]`: aggregations 
-to be used. It is possible to pass aggregation as a pair `(aggregation, predicate)`, 
-which will only aggregate classes that satisfy the predicate.
+to be used. If the aggregation function is passed, it will be applied to all classes. 
+Alternatively, it is possible to aggregate only a subset of classes by passing [`AggregationSubset`](@ref) created with [`aggregate_subset`](@ref).
 - `io::IO | String | HTML = stdout`: io to print out. Refer to `PrettyTables` for more information.
 - `include_support=true`: print support column or not
 - `default_format=val->@sprintf("%.4f", val)`: string format for the values
@@ -42,22 +73,24 @@ function classification_report(
     backend=Val(:text),
     optional_kws=backend == Val(:latex) ? Dict() : Dict(:crop => :none),
 )
-    names = pretty_name.(metrics)
+    names = get_print_name.(metrics)
     if include_support
         names = push!(names, "Support")
     end
 
-    get_aggregation(x::Tuple) = first(x)
-    get_aggregation(x) = x
-    aggregation_funcs = get_aggregation.(aggregations)
-    full_labels = get_print_name.(aggregation_funcs)
+    get_aggregation_subset(x::AggregationSubset) = x
+    get_aggregation_subset(x) = aggregate_subset(x)
+    aggregations = get_aggregation_subset.(aggregations)
+    aggregation_funcs = getfield.(aggregations, :aggregation)
+    full_labels = getfield.(aggregations, :name)
+    predicates = getfield.(aggregations, :predicate)
 
     support = get_support(prediction_results)
 
     get_predicate(x::Tuple) = last(x)
     get_predicate(_) = const_func(true)
 
-    all_inds = [get_predicate(ag).(prediction_results.label_set) for ag in aggregations]
+    all_inds = [p.(prediction_results.label_set) for p in predicates]
 
     support_col = [sum(support[inds]) for inds in all_inds]
 

@@ -269,7 +269,3 @@ F1_score(args...; kwargs...) = Fβ_score(args...; kwargs..., β=1)
 
 @metric binary_accuracy precision recall sensitivity fall_out miss_rate specificity "Jaccard index" jaccard support true_false_ratio Fβ_score
 
-"""
-    accuracy(predicted, actual) = mean(predicted .== actual)
-"""
-accuracy(predicted, actual) = mean(predicted .== actual)

@@ -28,7 +28,7 @@ function unlabeled_confusion_matrix(predicted, actual, label_set)
     reverse_index = Dict(x => i for (i, x) in enumerate(label_set))
     cm = zeros(Int64, m, m)
     for (p, a) in zip(predicted, actual)
-        cm[reverse_index[p], reverse_index[a]] += 1
+        cm[reverse_index[a], reverse_index[p]] += 1
     end
     return cm
 end
@@ -65,7 +65,7 @@ function show(io::IO, cm::ConfusionMatrix)
         header=cm.label_set,
         row_labels=cm.label_set,
         alignment=:c,
-        row_label_column_title="Predictions ↓",
+        row_label_column_title="Actual ↓",
         highlighters=(
             Highlighter((_, i, j) -> i == j; foreground=:green),
             Highlighter((_, i, j) -> i ≠ j; foreground=:red),

@@ -51,8 +51,8 @@ Calculate and return `TP`, `FN`, `FN` and `TN`.
 """
 function unlabeled_prediction_results(confusion_matrix)
     TP = diag(confusion_matrix)
-    FN = vec(sum(confusion_matrix; dims=1)) .- TP
-    FP = vec(sum(confusion_matrix; dims=2)) .- TP
+    FN = vec(sum(confusion_matrix; dims=2)) .- TP
+    FP = vec(sum(confusion_matrix; dims=1)) .- TP
     TN = sum(confusion_matrix) .- TP .- FN .- FP
     return TP, FN, FP, TN
 end
@@ -77,16 +77,16 @@ function Base.vcat(pr1::PredictionResults, pr2::PredictionResults)
     )
 end
 Base.vcat(pr1::PredictionResults, prs::PredictionResults...) = reduce(vcat, prs; init=pr1)
+Base.length(pr::PredictionResults) = length(pr.label_set)
 
-function show(io::IO, cm::PredictionResults)
+function show(io::IO, pr::PredictionResults)
     return pretty_table(
         io,
-        cm.results;
+        hcat(pr.TP, pr.FN, pr.FP, pr.TN);
         header=["TP", "FN", "FP", "TN"],
-        row_labels=cm.label_set,
+        row_labels=pr.label_set,
         alignment=:r,
-        # row_label_column_title="Predictions ↓",
-        hlines=0:(length(cm.label_set) + 1),
+        hlines=0:(length(pr.label_set) + 1),
         vlines=0:5,
         crop=:none,
     )

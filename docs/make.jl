@@ -14,6 +14,11 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Confusion matrix" => "confusion_matrix.md",
+        "Prediction results" => "prediction_results.md",
+        "Metrics" => "metrics.md",
+        "Classification report" => "classification_report.md",
+        "API reference" => "api.md",
     ],
 )
 

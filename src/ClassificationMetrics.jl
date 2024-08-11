@@ -15,8 +15,9 @@ export IoU,
     false_positive_rate,
     false_negative_rate,
     miss_rate,
-    jaccard
-export classification_report
+    jaccard,
+    binary_accuracy
+export classification_report, aggregate_subset
 export macro_aggregation, micro_aggregation, weighted_aggregation, no_aggregation
 export @metric
 
@@ -25,7 +26,7 @@ using Statistics, OneHotArrays, LinearAlgebra, PrettyTables, Printf
 
 using DocStringExtensions
 import OneHotArrays: onehotbatch, OneHotLike
-import Base: show, getindex, vcat
+import Base: show, getindex, vcat, length
 
 include("common_utils.jl")
 include("confusion_matrix.jl")
