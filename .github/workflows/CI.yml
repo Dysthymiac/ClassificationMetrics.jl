@@ -53,9 +53,9 @@ jobs:
         with:
           version: '1.9'
       - uses: julia-actions/cache@v2
-      - uses: zauguin/install-texlive@v3
+      - uses: xu-cheng/texlive-action@v2
         with:
-          packages: scheme-basic l3build latex latex-bin luatex latex-bin-dev
+          scheme: full
       - name: Configure doc environment
         shell: julia --project=docs --color=yes {0}
         run: |
