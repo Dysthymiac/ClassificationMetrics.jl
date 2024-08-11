@@ -47,7 +47,7 @@ Alternatively, it is possible to aggregate only a subset of classes by passing [
 - `default_format=val->@sprintf("%.4f", val)`: string format for the values
 - `backend=Val(:text)`: the backend used to generate table. 
 Can be Val(:text), Val(:html), Val(:latex), Val(:markdown). Refer to `PrettyTables` for more information.
-- `optional_kws = backend == Val(:latex) ? Dict() : Dict(:crop => :none)`: optional keywords to pass to `pretty_table`
+- `optional_kws = DEFAULT_PARAMETERS[backend]: optional keywords to pass to `pretty_table`
 """
 function classification_report(
     predicted, actual; label_set=nothing, sort_labels=true, kws...
@@ -62,6 +62,12 @@ function classification_report(cf::ConfusionMatrix; kws...)
     return classification_report(prediction_results(cf); kws...)
 end
 
+DEFAULT_PARAMETERS = Dict(
+    Val(:text) => Dict(:crop => :none),
+    Val(:latex) => Dict(),
+    Val(:markdown) => Dict(),
+    Val(:html) => Dict())
+
 function classification_report(
     prediction_results::PredictionResults;
     metrics=[precision, recall, F1_score],
@@ -71,7 +77,7 @@ function classification_report(
     include_support=true,
     default_format=val -> @sprintf("%.4f", val),
     backend=Val(:text),
-    optional_kws=backend == Val(:latex) ? Dict() : Dict(:crop => :none),
+    optional_kws=DEFAULT_PARAMETERS[backend],
 )
     names = get_print_name.(metrics)
     if include_support
@@ -115,13 +121,14 @@ function classification_report(
     if include_support
         table = hcat(table, support_col)
     end
-
+    if haskey(optional_kws, :hlines) && backend ≠ Val(:markdown)
+        optional_kws[:hlines] = [0, 1, size(table, 1) + 1 - length(aggregations), size(table, 1) + 1]
+    end
     pretty = pretty_table(
         io,
         table;
         header=names,
         row_labels=full_labels,
-        hlines=[0, 1, size(table, 1) + 1 - length(aggregations), size(table, 1) + 1],
         formatters=(v, i, j) -> if (j == size(table, 2) && include_support)
             round(Integer, v)
         else
