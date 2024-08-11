@@ -61,12 +61,13 @@ jobs:
         shell: bash
         run: |
           chmod u+x docs/install_texlive.sh
-          bash ./docs/install_texlive.sh
+          bash docs/install_texlive.sh
           echo "/opt/texlive/bin/x86_64-linux" >> $GITHUB_PATH
       - name: Test lualatex
         shell: bash
         run: |
-          lualatex --version
+          lualatex --interaction=batchmode docs/test.tex
+          cat docs/test.log
       - name: Configure doc environment
         shell: julia --project=docs --color=yes {0}
         run: |
