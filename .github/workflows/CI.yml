@@ -53,9 +53,9 @@ jobs:
         with:
           version: '1.9'
       - uses: julia-actions/cache@v2
-      - uses: dante-ev/latex-action@latest
+      - uses: zauguin/install-texlive@v3
         with:
-          entrypoint: ./release.sh
+          packages: scheme-basic
       - name: Configure doc environment
         shell: julia --project=docs --color=yes {0}
         run: |
