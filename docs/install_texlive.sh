@@ -1,3 +1,5 @@
+#!/bin/bash
+
 TL_MIRROR="https://texlive.info/CTAN/systems/texlive/tlnet"
 
 mkdir "/tmp/texlive" 
