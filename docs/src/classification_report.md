@@ -105,8 +105,8 @@ latex_table = classification_report(predicted,
 using Latexify # hide
 
 latex_string = Latexify.LaTeXString(latex_table) # hide
-# render(latex_string, MIME("image/svg"), documentclass=("standalone"), name="table",open=false) # hide
+render(latex_string, MIME("image/svg"), debug=true, documentclass=("standalone"), name="table",open=false) # hide
 latex_table # hide
 nothing # hide
 ```
-<!-- ![](table.svg) -->
+![](table.svg)
