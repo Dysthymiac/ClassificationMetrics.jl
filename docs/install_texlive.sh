@@ -24,6 +24,6 @@ export PATH="${PATH}:/opt/texlive/bin/x86_64-linux"
 
 tlmgr install scheme-small standalone luatex85 lualatex-math
 
-rm -vf "/opt/texlive/install-tl" 
-rm -vf "/opt/texlive/install-tl.log"
-rm -vrf /tmp/*
+# rm -vf "/opt/texlive/install-tl" 
+# rm -vf "/opt/texlive/install-tl.log"
+# rm -vrf /tmp/*
