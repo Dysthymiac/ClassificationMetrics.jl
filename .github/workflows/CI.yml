@@ -67,7 +67,7 @@ jobs:
         shell: bash
         run: |
           lualatex --interaction=batchmode docs/test.tex
-          cat docs/test.log
+          ls docs
       - name: Configure doc environment
         shell: julia --project=docs --color=yes {0}
         run: |
