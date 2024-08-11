@@ -59,7 +59,7 @@ jobs:
           version: 1.0
       - run: |
           chmod u+x docs/install_texlive.sh
-          ./docs/install_texlive.sh
+          bash ./docs/install_texlive.sh
           lualatex --version
       - name: Configure doc environment
         shell: julia --project=docs --color=yes {0}
