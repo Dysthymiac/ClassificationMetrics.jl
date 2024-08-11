@@ -57,9 +57,12 @@ jobs:
         with:
           packages: wget perl dvisvgm pdf2svg 
           version: 1.0
+      - name: Install TexLive
+      - shell: bash
       - run: |
           chmod u+x docs/install_texlive.sh
           bash ./docs/install_texlive.sh
+          echo "/opt/texlive/bin/x86_64-linux" >> $GITHUB_PATH
           lualatex --version
       - name: Configure doc environment
         shell: julia --project=docs --color=yes {0}
