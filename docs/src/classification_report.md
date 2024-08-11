@@ -79,16 +79,7 @@ markdown_table = classification_report(predicted,
 Markdown.parse(markdown_table) # hide
 ```
 
-```@setup 1
-struct LaTeXEquation 
-    content::String
-end
 
-function Base.show(io::IO, ::MIME"text/latex", x::LaTeXEquation)
-    # Wrap in $$ for display math printing
-    return print(io, "\$\$ " * x.content * " \$\$")
-end
-```
 
 ```@example 1
 latex_table = classification_report(predicted, 
@@ -114,8 +105,8 @@ latex_table = classification_report(predicted,
 using Latexify # hide
 
 latex_string = Latexify.LaTeXString(latex_table) # hide
-render(latex_string, MIME("image/svg"), documentclass=("standalone"), name="table",open=false) # hide
-# latex_table # hide
+# render(latex_string, MIME("image/svg"), documentclass=("standalone"), name="table",open=false) # hide
+latex_table # hide
 nothing # hide
 ```
-![](table.svg)
+<!-- ![](table.svg) -->
