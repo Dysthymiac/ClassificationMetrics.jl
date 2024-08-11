@@ -54,6 +54,8 @@ jobs:
           version: '1.9'
       - uses: julia-actions/cache@v2
       - uses: dante-ev/latex-action@latest
+        with:
+          entrypoint: ./release.sh
       - name: Configure doc environment
         shell: julia --project=docs --color=yes {0}
         run: |
