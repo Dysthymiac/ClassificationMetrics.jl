@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Classification report · ClassificationMetrics.jl</title><meta name="title" content="Classification report · ClassificationMetrics.jl"/><meta property="og:title" content="Classification report · ClassificationMetrics.jl"/><meta property="twitter:title" content="Classification report · ClassificationMetrics.jl"/><meta name="description" content="Documentation for ClassificationMetrics.jl."/><meta property="og:description" content="Documentation for ClassificationMetrics.jl."/><meta property="twitter:description" content="Documentation for ClassificationMetrics.jl."/><meta property="og:url" content="https://Dysthymiac.github.io/ClassificationMetrics.jl/classification_report/"/><meta property="twitter:url" content="https://Dysthymiac.github.io/ClassificationMetrics.jl/classification_report/"/><link rel="canonical" href="https://Dysthymiac.github.io/ClassificationMetrics.jl/classification_report/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">ClassificationMetrics.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../confusion_matrix/">Confusion matrix</a></li><li><a class="tocitem" href="../prediction_results/">Prediction results</a></li><li><a class="tocitem" href="../metrics/">Metrics</a></li><li class="is-active"><a class="tocitem" href>Classification report</a></li><li><a class="tocitem" href="../api/">API reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Classification report</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Classification report</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/Dysthymiac/ClassificationMetrics.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/Dysthymiac/ClassificationMetrics.jl/blob/main/docs/src/classification_report.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Classification-report"><a class="docs-heading-anchor" href="#Classification-report">Classification report</a><a id="Classification-report-1"></a><a class="docs-heading-anchor-permalink" href="#Classification-report" title="Permalink"></a></h1><p>Aggregate statistics for the multiclass classification can be conveniently calculated and summarized using the <a href="../api/#ClassificationMetrics.classification_report-Tuple{Any, Any}"><code>classification_report</code></a> function. </p><pre><code class="language-julia hljs">classes = [:Class1, :Class2, :Class3]
+
+predicted = rand(classes, 100)
+actual = rand(classes, 100)
+
+classification_report(predicted, actual, label_set=classes)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌──────────┬───────────┬────────┬──────────┬─────────┐
+│<span class="sgr1">          </span>│<span class="sgr1"> Precision </span>│<span class="sgr1"> Recall </span>│<span class="sgr1"> F1 score </span>│<span class="sgr1"> Support </span>│
+├──────────┼───────────┼────────┼──────────┼─────────┤
+│<span class="sgr1">   Class1 </span>│    0.4444 │ 0.3529 │   0.3934 │      34 │
+│<span class="sgr1">   Class2 </span>│    0.2353 │ 0.2857 │   0.2581 │      28 │
+│<span class="sgr1">   Class3 </span>│    0.4359 │ 0.4474 │   0.4416 │      38 │
+│<span class="sgr1">    Micro </span>│    0.3719 │ 0.3620 │   0.3644 │     100 │
+│<span class="sgr1">    Macro </span>│    0.3700 │ 0.3700 │   0.3700 │     100 │
+│<span class="sgr1"> Weighted </span>│    0.3826 │ 0.3700 │   0.3738 │     100 │
+└──────────┴───────────┴────────┴──────────┴─────────┘</code></pre><p>It is possible to specify custom metrics and custom aggregation subsets. If it is necessary, for example, to only aggregate specific classes, it can be accomplished with the <a href="../api/#ClassificationMetrics.aggregate_subset-Tuple{Any}"><code>aggregate_subset</code></a> that can be passed along other aggregations:</p><pre><code class="language-julia hljs">using ClassificationMetrics:precision
+
+classification_report(predicted,
+                        actual,
+                        label_set=classes,
+                        metrics=[precision, recall, F1_score, Fβ_score(2)],
+                        aggregations=[
+                            aggregate_subset(
+                                macro_aggregation,
+                                name=&quot;Classes 1 and 2&quot;,
+                                predicate=∈([:Class1, :Class2])),
+                            aggregate_subset(
+                                macro_aggregation,
+                                name=&quot;Classes 2 and 3&quot;,
+                                predicate=∈([:Class2, :Class3])),
+                            micro_aggregation,
+                            macro_aggregation,
+                            weighted_aggregation
+                        ])</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌─────────────────┬───────────┬────────┬──────────┬──────────┬─────────┐
+│<span class="sgr1">                 </span>│<span class="sgr1"> Precision </span>│<span class="sgr1"> Recall </span>│<span class="sgr1"> F1 score </span>│<span class="sgr1"> F2 score </span>│<span class="sgr1"> Support </span>│
+├─────────────────┼───────────┼────────┼──────────┼──────────┼─────────┤
+│<span class="sgr1">          Class1 </span>│    0.4444 │ 0.3529 │   0.3934 │   0.3681 │      34 │
+│<span class="sgr1">          Class2 </span>│    0.2353 │ 0.2857 │   0.2581 │   0.2740 │      28 │
+│<span class="sgr1">          Class3 </span>│    0.4359 │ 0.4474 │   0.4416 │   0.4450 │      38 │
+│<span class="sgr1"> Classes 1 and 2 </span>│    0.3279 │ 0.3226 │   0.3252 │   0.3236 │      62 │
+│<span class="sgr1"> Classes 2 and 3 </span>│    0.3425 │ 0.3788 │   0.3597 │   0.3709 │      66 │
+│<span class="sgr1">           Micro </span>│    0.3719 │ 0.3620 │   0.3644 │   0.3624 │     100 │
+│<span class="sgr1">           Macro </span>│    0.3700 │ 0.3700 │   0.3700 │   0.3700 │     100 │
+│<span class="sgr1">        Weighted </span>│    0.3826 │ 0.3700 │   0.3738 │   0.3710 │     100 │
+└─────────────────┴───────────┴────────┴──────────┴──────────┴─────────┘</code></pre><p>The table is printed using <a href="https://github.com/ronisbr/PrettyTables.jl"><code>PrettyTables</code></a> and accepts keyword arguments defined in that package. For example, to print the table in the <span>$\LaTeX$</span> or Markdown formats, one can specify the <code>backend</code>:</p><pre><code class="language-julia hljs">using Markdown
+
+markdown_table = classification_report(predicted,
+                        actual,
+                        label_set=classes,
+                        metrics=[precision, recall, F1_score, Fβ_score(2)],
+                        aggregations=[
+                            aggregate_subset(
+                                macro_aggregation,
+                                name=&quot;Classes 1 and 2&quot;,
+                                predicate=∈([:Class1, :Class2])),
+                            aggregate_subset(
+                                macro_aggregation,
+                                name=&quot;Classes 2 and 3&quot;,
+                                predicate=∈([:Class2, :Class3])),
+                            micro_aggregation,
+                            macro_aggregation,
+                            weighted_aggregation
+                        ],
+                        io=String,
+                        backend=Val(:markdown)) |&gt; first</code></pre><div class="markdown"><table><tr><th align="right"></th><th align="right"><strong>Precision</strong></th><th align="right"><strong>Recall</strong></th><th align="right"><strong>F1 score</strong></th><th align="right"><strong>F2 score</strong></th><th align="right"><strong>Support</strong></th></tr><tr><td align="right">Class1</td><td align="right">0.4444</td><td align="right">0.3529</td><td align="right">0.3934</td><td align="right">0.3681</td><td align="right">34</td></tr><tr><td align="right">Class2</td><td align="right">0.2353</td><td align="right">0.2857</td><td align="right">0.2581</td><td align="right">0.2740</td><td align="right">28</td></tr><tr><td align="right">Class3</td><td align="right">0.4359</td><td align="right">0.4474</td><td align="right">0.4416</td><td align="right">0.4450</td><td align="right">38</td></tr><tr><td align="right">Classes 1 and 2</td><td align="right">0.3279</td><td align="right">0.3226</td><td align="right">0.3252</td><td align="right">0.3236</td><td align="right">62</td></tr><tr><td align="right">Classes 2 and 3</td><td align="right">0.3425</td><td align="right">0.3788</td><td align="right">0.3597</td><td align="right">0.3709</td><td align="right">66</td></tr><tr><td align="right">Micro</td><td align="right">0.3719</td><td align="right">0.3620</td><td align="right">0.3644</td><td align="right">0.3624</td><td align="right">100</td></tr><tr><td align="right">Macro</td><td align="right">0.3700</td><td align="right">0.3700</td><td align="right">0.3700</td><td align="right">0.3700</td><td align="right">100</td></tr><tr><td align="right">Weighted</td><td align="right">0.3826</td><td align="right">0.3700</td><td align="right">0.3738</td><td align="right">0.3710</td><td align="right">100</td></tr></table>
+</div><pre><code class="language-julia hljs">latex_table = classification_report(predicted,
+                        actual,
+                        label_set=classes,
+                        metrics=[precision, recall, F1_score, Fβ_score(2)],
+                        aggregations=[
+                            aggregate_subset(
+                                macro_aggregation,
+                                name=&quot;Classes 1 and 2&quot;,
+                                predicate=∈([:Class1, :Class2])),
+                            aggregate_subset(
+                                macro_aggregation,
+                                name=&quot;Classes 2 and 3&quot;,
+                                predicate=∈([:Class2, :Class3])),
+                            micro_aggregation,
+                            macro_aggregation,
+                            weighted_aggregation
+                        ],
+                        io=String,
+                        backend=Val(:latex)) |&gt; first</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)
+ restricted system commands enabled.
+
+luaotfload | db : Font names database not found, generating new one.
+luaotfload | db : This can take several minutes; please be patient.processing PDF file
+  graphic size: 459.680361pt x 163.199713pt (161.559169mm x 57.358139mm)
+  output written to table.svg
+1 of 1 page converted in 0.133627 seconds</code></pre><p><img src="../table.svg" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../metrics/">« Metrics</a><a class="docs-footer-nextpage" href="../api/">API reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.5.0 on <span class="colophon-date" title="Monday 12 August 2024 01:50">Monday 12 August 2024</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
