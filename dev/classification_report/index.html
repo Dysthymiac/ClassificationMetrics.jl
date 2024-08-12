@@ -10,7 +10,6 @@ classification_report(predicted, actual, label_set=classes)</code></pre><pre cla
 │<span class="sgr1">   Class1 </span>│    0.4444 │ 0.3529 │   0.3934 │      34 │
 │<span class="sgr1">   Class2 </span>│    0.2353 │ 0.2857 │   0.2581 │      28 │
 │<span class="sgr1">   Class3 </span>│    0.4359 │ 0.4474 │   0.4416 │      38 │
-├──────────┼───────────┼────────┼──────────┼─────────┤
 │<span class="sgr1">    Micro </span>│    0.3719 │ 0.3620 │   0.3644 │     100 │
 │<span class="sgr1">    Macro </span>│    0.3700 │ 0.3700 │   0.3700 │     100 │
 │<span class="sgr1"> Weighted </span>│    0.3826 │ 0.3700 │   0.3738 │     100 │
@@ -38,10 +37,55 @@ classification_report(predicted,
 │<span class="sgr1">          Class1 </span>│    0.4444 │ 0.3529 │   0.3934 │   0.3681 │      34 │
 │<span class="sgr1">          Class2 </span>│    0.2353 │ 0.2857 │   0.2581 │   0.2740 │      28 │
 │<span class="sgr1">          Class3 </span>│    0.4359 │ 0.4474 │   0.4416 │   0.4450 │      38 │
-├─────────────────┼───────────┼────────┼──────────┼──────────┼─────────┤
 │<span class="sgr1"> Classes 1 and 2 </span>│    0.3279 │ 0.3226 │   0.3252 │   0.3236 │      62 │
 │<span class="sgr1"> Classes 2 and 3 </span>│    0.3425 │ 0.3788 │   0.3597 │   0.3709 │      66 │
 │<span class="sgr1">           Micro </span>│    0.3719 │ 0.3620 │   0.3644 │   0.3624 │     100 │
 │<span class="sgr1">           Macro </span>│    0.3700 │ 0.3700 │   0.3700 │   0.3700 │     100 │
 │<span class="sgr1">        Weighted </span>│    0.3826 │ 0.3700 │   0.3738 │   0.3710 │     100 │
-└─────────────────┴───────────┴────────┴──────────┴──────────┴─────────┘</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../metrics/">« Metrics</a><a class="docs-footer-nextpage" href="../api/">API reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.5.0 on <span class="colophon-date" title="Sunday 11 August 2024 14:44">Sunday 11 August 2024</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+└─────────────────┴───────────┴────────┴──────────┴──────────┴─────────┘</code></pre><p>The table is printed using <a href="https://github.com/ronisbr/PrettyTables.jl"><code>PrettyTables</code></a> and accepts keyword arguments defined in that package. For example, to print the table in the <span>$\LaTeX$</span> or Markdown formats, one can specify the <code>backend</code>:</p><pre><code class="language-julia hljs">using Markdown
+
+markdown_table = classification_report(predicted,
+                        actual,
+                        label_set=classes,
+                        metrics=[precision, recall, F1_score, Fβ_score(2)],
+                        aggregations=[
+                            aggregate_subset(
+                                macro_aggregation,
+                                name=&quot;Classes 1 and 2&quot;,
+                                predicate=∈([:Class1, :Class2])),
+                            aggregate_subset(
+                                macro_aggregation,
+                                name=&quot;Classes 2 and 3&quot;,
+                                predicate=∈([:Class2, :Class3])),
+                            micro_aggregation,
+                            macro_aggregation,
+                            weighted_aggregation
+                        ],
+                        io=String,
+                        backend=Val(:markdown)) |&gt; first</code></pre><div class="markdown"><table><tr><th align="right"></th><th align="right"><strong>Precision</strong></th><th align="right"><strong>Recall</strong></th><th align="right"><strong>F1 score</strong></th><th align="right"><strong>F2 score</strong></th><th align="right"><strong>Support</strong></th></tr><tr><td align="right">Class1</td><td align="right">0.4444</td><td align="right">0.3529</td><td align="right">0.3934</td><td align="right">0.3681</td><td align="right">34</td></tr><tr><td align="right">Class2</td><td align="right">0.2353</td><td align="right">0.2857</td><td align="right">0.2581</td><td align="right">0.2740</td><td align="right">28</td></tr><tr><td align="right">Class3</td><td align="right">0.4359</td><td align="right">0.4474</td><td align="right">0.4416</td><td align="right">0.4450</td><td align="right">38</td></tr><tr><td align="right">Classes 1 and 2</td><td align="right">0.3279</td><td align="right">0.3226</td><td align="right">0.3252</td><td align="right">0.3236</td><td align="right">62</td></tr><tr><td align="right">Classes 2 and 3</td><td align="right">0.3425</td><td align="right">0.3788</td><td align="right">0.3597</td><td align="right">0.3709</td><td align="right">66</td></tr><tr><td align="right">Micro</td><td align="right">0.3719</td><td align="right">0.3620</td><td align="right">0.3644</td><td align="right">0.3624</td><td align="right">100</td></tr><tr><td align="right">Macro</td><td align="right">0.3700</td><td align="right">0.3700</td><td align="right">0.3700</td><td align="right">0.3700</td><td align="right">100</td></tr><tr><td align="right">Weighted</td><td align="right">0.3826</td><td align="right">0.3700</td><td align="right">0.3738</td><td align="right">0.3710</td><td align="right">100</td></tr></table>
+</div><pre><code class="language-julia hljs">latex_table = classification_report(predicted,
+                        actual,
+                        label_set=classes,
+                        metrics=[precision, recall, F1_score, Fβ_score(2)],
+                        aggregations=[
+                            aggregate_subset(
+                                macro_aggregation,
+                                name=&quot;Classes 1 and 2&quot;,
+                                predicate=∈([:Class1, :Class2])),
+                            aggregate_subset(
+                                macro_aggregation,
+                                name=&quot;Classes 2 and 3&quot;,
+                                predicate=∈([:Class2, :Class3])),
+                            micro_aggregation,
+                            macro_aggregation,
+                            weighted_aggregation
+                        ],
+                        io=String,
+                        backend=Val(:latex)) |&gt; first</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)
+ restricted system commands enabled.
+
+luaotfload | db : Font names database not found, generating new one.
+luaotfload | db : This can take several minutes; please be patient.processing PDF file
+  graphic size: 459.680361pt x 163.199713pt (161.559169mm x 57.358139mm)
+  output written to table.svg
+1 of 1 page converted in 0.138493 seconds</code></pre><p><img src="../table.svg" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../metrics/">« Metrics</a><a class="docs-footer-nextpage" href="../api/">API reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.5.0 on <span class="colophon-date" title="Monday 12 August 2024 01:35">Monday 12 August 2024</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
