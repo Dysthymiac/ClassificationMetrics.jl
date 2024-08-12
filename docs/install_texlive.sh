@@ -22,7 +22,7 @@ tar xzvf ./install-tl-unx.tar.gz
 
 export PATH="${PATH}:/opt/texlive/bin/x86_64-linux"
 
-tlmgr install scheme-small standalone luatex85 lualatex-math
+tlmgr install scheme-small standalone luatex85 lualatex-math dvips dvisvgm
 
 # rm -vf "/opt/texlive/install-tl" 
 # rm -vf "/opt/texlive/install-tl.log"
