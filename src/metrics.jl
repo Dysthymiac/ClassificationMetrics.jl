@@ -212,9 +212,9 @@ precision(TP, FN, FP, TN) = safe_div(TP, TP + FP)
 """
 recall(TP, FN, FP, TN) = safe_div(TP, TP + FN)
 @doc (@doc recall)
-sensitivity(args...; kwargs...) = recall(args...; kwargs...)
+const sensitivity = recall
 @doc (@doc recall)
-true_positive_rate(args...; kwargs...) = recall(args...; kwargs...)
+const true_positive_rate = recall
 
 """
     fall_out(TP, FN, FP, TN) = safe_div(FP, FP + TN)
@@ -222,14 +222,14 @@ true_positive_rate(args...; kwargs...) = recall(args...; kwargs...)
 """
 fall_out(TP, FN, FP, TN) = safe_div(FP, FP + TN)
 @doc (@doc fall_out)
-false_positive_rate(args...; kwargs...) = fall_out(args...; kwargs...)
+const false_positive_rate = fall_out
 """
     miss_rate(TP, FN, FP, TN) = safe_div(FN, TP + FN)
     false_negative_rate(TP, FN, FP, TN) = safe_div(FN, TP + FN)
 """
 miss_rate(TP, FN, FP, TN) = safe_div(FN, TP + FN)
 @doc (@doc miss_rate)
-false_negative_rate(args...; kwargs...) = miss_rate(args...; kwargs...)
+const false_negative_rate = miss_rate
 """
     specificity(TP, FN, FP, TN) = safe_div(TN, FP + TN)
 """
@@ -240,7 +240,7 @@ specificity(TP, FN, FP, TN) = safe_div(TN, FP + TN)
 """
 jaccard(TP, FN, FP, TN) = safe_div(TP, TP + FN + FP)
 @doc (@doc jaccard)
-IoU(args...; kwargs...) = jaccard(args...; kwargs...)
+const IoU = jaccard
 """
     support(TP, FN, FP, TN) = TP + FN
 """
